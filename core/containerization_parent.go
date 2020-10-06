@@ -4,6 +4,8 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/echenim/microcloud/utils"
+
 	"github.com/echenim/microcloud/core/namespaces"
 )
 
@@ -18,4 +20,6 @@ func Parent() {
 	cmd.Stderr = os.Stderr
 	nspace.GetHostName(cmd)
 
+	r := cmd.Run()
+	utils.Check(r, "FAILED")
 }
