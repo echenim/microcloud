@@ -1,6 +1,7 @@
 package core
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 
@@ -12,14 +13,14 @@ import (
 //Parent function for accessing namespaces and cgroups
 //go run main.go run /bin/bash
 func Parent() {
-
+	fmt.Printf("running %v as PID %d\n", os.Args[2:], os.Getpid())
 	nspace := namespaces.Namespace{}
 	cmd := exec.Command("/proc/self/exe", append([]string{"child"}, os.Args[2:]...)...)
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
+	nspace.GetInput(cmd)
+	nspace.GetOutput(cmd)
+	nspace.GetError(cmd)
 	nspace.GetHostName(cmd)
-
+	nspace.GetProcessID(cmd)
 	r := cmd.Run()
 	utils.Check(r, "FAILED")
 }

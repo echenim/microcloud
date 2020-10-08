@@ -1,8 +1,22 @@
 package main
 
-//26028f81c5ec522c80b21d909a2333b6357cf74f
+import (
+	"os"
+
+	"github.com/echenim/microcloud/core"
+)
 
 // container entry point
 func main() {
+
+	switch os.Args[1] {
+	case "run":
+		core.Parent()
+	case "child":
+		core.Child()
+	default:
+		panic("what??")
+
+	}
 
 }

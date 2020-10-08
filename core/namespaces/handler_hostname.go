@@ -15,7 +15,7 @@ func (n *Namespace) GetHostName(cmd *exec.Cmd) {
 }
 
 //SetHostName for setting hostname
-func (n *Namespace) SetHostName(cmd *exec.Cmd, hostname string) {
+func (n *Namespace) SetHostName(hostname string, cmd *exec.Cmd) {
 	syscall.Sethostname([]byte(hostname))
 }
 
